@@ -7,16 +7,14 @@
 
 import SwiftUI
 
-struct AuthenticationFlow: View {
+struct Authentication: View {
     @StateObject private var sessionManager = SessionManager.shared
     
     var body: some View {
         if sessionManager.isAuthenticated {
-            // L'utilisateur est connecté → afficher la MainTabView
-//            MainTabView()
-            print("Vous êtes connecté.")
+//            MovieListView()
+            ProfileView()
         } else {
-            // L'utilisateur n'est pas connecté → afficher l'écran d'authentification
             AuthChoiceView()
         }
     }

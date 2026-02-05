@@ -109,6 +109,17 @@ class UserStorage {
         users[index].addFavoriteMovie(movieId: movieId)
         try saveUsers(users)
     }
+    
+    func removeFavoriteMovie(movieId: Int, userId: String) throws {
+        var users = try getAllUsers()
+        
+        guard let index = users.firstIndex(where: { $0.id == userId }) else {
+            throw UserStorageError.userNotFound
+        }
+        
+        users[index].removeFavoriteMovie(movieId: movieId)
+        try saveUsers(users)
+    }
 }
 
 enum UserStorageError: LocalizedError {
