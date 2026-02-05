@@ -53,7 +53,7 @@ struct CustomButton: View {
         .disabled(!isEnabled || isLoading)
         .opacity(isEnabled ? 1.0 : 0.6)
     }
-        
+
     private var buttonHeight: CGFloat {
         switch size {
         case .small:
