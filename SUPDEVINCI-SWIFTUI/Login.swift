@@ -10,15 +10,11 @@ import SwiftUI
 struct Login: View {
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var test = 0
+    
     var body: some View {
+        Header()
         VStack(spacing: 20) {
-            HStack {
-                Text("The Sea")
-                    .font(.largeTitle)
-                Image(systemName: "film")
-                    .foregroundStyle(.blue)
-                    .imageScale(.large)
-            }
             Text("Sign in to your account")
                 .font(.caption)
             VStack(spacing: 20) {
@@ -29,6 +25,7 @@ struct Login: View {
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
             }.padding()
+            Text("\(password)")
             Button(action: {}) {
                 Text("Sign in")
                     .padding()
@@ -36,6 +33,13 @@ struct Login: View {
                 .foregroundStyle(.white)
                 .background(Color.black)
                 .clipShape(.rect(cornerRadius: 15)).shadow(radius: 8)
+            Button("Increment") {
+                test += 1
+            }
+            Button("Decrement") {
+                test -= 1
+            }
+            Text("\(test)")
             ZStack {}
         }
     }

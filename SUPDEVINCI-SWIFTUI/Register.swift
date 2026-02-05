@@ -7,30 +7,25 @@
 
 import SwiftUI
 
-struct Login: View {
+struct Register: View {
     @State private var username: String = ""
     @State private var password: String = ""
+    @State private var confirmPassword: String = ""
+    
     var body: some View {
         VStack(spacing: 20) {
-            HStack {
-                Text("The Sea")
-                    .font(.largeTitle)
-                Image(systemName: "film")
-                    .foregroundStyle(.blue)
-                    .imageScale(.large)
-            }
-            Text("Sign in to your account")
+            Header()
+            Text("Create a new account")
                 .font(.caption)
             VStack(spacing: 20) {
                 TextField("Email", text: $username)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
                 SecureField("Password", text: $password)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
-            }.padding()
+                SecureField("Confirm password", text: $confirmPassword)
+            }
+                .padding()
+                .textFieldStyle(.roundedBorder)
             Button(action: {}) {
-                Text("Sign in")
+                Text("Register")
                     .padding()
             }
                 .foregroundStyle(.white)
