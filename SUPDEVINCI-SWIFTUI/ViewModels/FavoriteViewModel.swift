@@ -109,4 +109,46 @@ class FavoriteViewModel: ObservableObject {
         case rating
         case movieTitle
     }
+    
+    func updateFavoriteNotes(
+        favoriteId: String,
+        personalRating: Double? = nil,
+        notes: String? = nil
+    ) {
+        guard let userId = sessionManager.currentUser?.id else {
+            errorMessage = "Utilisateur non connecté"
+            return
+        }
+        
+        Task {
+            do {
+                try favoriteStorage.updateFavorite(
+                    withId: favoriteId,
+                    personalRating: personalRating,
+                    notes: notes,
+                    userId: userId
+                )
+                
+                // Mettre à jour la liste locale
+                await MainActor.run {
+                    if let index = favorites.firstIndex(where: { $0.id == favoriteId }) {
+                        favorites[index] = Favorite(
+                            id: favoriteId,
+                            userId: userId,
+                            movieId: favorites[index].movieId,
+                            movie: favorites[index].movie,
+                            dateAdded: favorites[index].dateAdded,
+                            personalRating: personalRating,
+                            notes: notes
+                        )
+                    }
+                }
+                
+            } catch {
+                await MainActor.run {
+                    errorMessage = "Erreur lors de la mise à jour du favori"
+                }
+            }
+        }
+    }
 }
