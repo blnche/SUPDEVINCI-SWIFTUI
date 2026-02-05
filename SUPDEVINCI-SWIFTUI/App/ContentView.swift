@@ -8,19 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var user: Bool = true
+    @State var user: Bool = false
     var body: some View {
-        if user {
             VStack {
                 TabView {
-                    Text("Movies").tabItem { Label("Movies", systemImage: "film") }
+                    MovieListView().tabItem { Label("Movies", systemImage: "film") }
+                    if user {
                     Text("Favorites").tabItem { Label("Favorites", systemImage: "heart") }
+                    } 
                     Text("Account").tabItem { Label("Account", systemImage: "person") }
                 }
             }
-        } else {
-             Register()
-        }
     }
 }
 
