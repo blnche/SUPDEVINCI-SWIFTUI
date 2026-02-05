@@ -11,7 +11,7 @@ struct MovieListView: View {
     @StateObject private var viewModel = MovieViewModel()
     
     var body: some View {
-        ZStack {
+        VStack (alignment: .leading) {
             if viewModel.isLoading {
 //                LoadingView()
                 Text("Loading...")
@@ -19,11 +19,20 @@ struct MovieListView: View {
 //                ErrorView(message: errorMessage)
                 Text("Error: \(errorMessage)")
             } else {
-                List(viewModel.movies) { movie in
-                    Text("\(movie.title)")
+                Text("Popular Movies")
+                    .font(.largeTitle)
+                ScrollView {
+                    VStack (spacing: 20) {
+                        ForEach(viewModel.movies, id: \.id ) { movie in
+                            MovieRowView(movie: movie)
+                        }
+                    }
+                    .padding(15)
                 }
+                    
             }
         }
+        .padding()
         .onAppear() {
             viewModel.loadPopularMovies()
         }
