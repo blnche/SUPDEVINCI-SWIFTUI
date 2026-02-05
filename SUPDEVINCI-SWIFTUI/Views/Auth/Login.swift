@@ -47,13 +47,15 @@ struct Login: View {
     
     private func handleLogin() {
         isLoading = true
-        Task {
-            do {
-                try sessionManager.login(email: email, password: password)
-            } catch {
-                errorMessage = error.localizedDescription
-                isLoading = false
-            }
+        errorMessage = nil
+        
+        do {
+            try sessionManager.login(email: email, password: password)
+            print("✅ Login réussi")
+        } catch {
+            print("❌ Erreur login: \(error.localizedDescription)")
+            errorMessage = error.localizedDescription
+            isLoading = false
         }
     }
 }
