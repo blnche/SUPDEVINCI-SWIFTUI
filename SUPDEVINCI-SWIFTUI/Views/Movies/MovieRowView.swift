@@ -10,6 +10,8 @@ import SwiftUI
 struct MovieRowView: View {
     let movie: Movie
     @State private var isFavorite: Bool = false
+    @State private var showDrawer = false
+
     
     var body: some View {
         Card{
@@ -22,13 +24,21 @@ struct MovieRowView: View {
                 } label: {
                     Image(systemName: isFavorite ? "heart.fill" : "heart")
                         .foregroundColor(isFavorite ? .yellow : .gray)
-                        .font(.title3) // Makes the icon slightly bigger/bolder
+                        .font(.title3)
                 }
             }
                 .frame(maxWidth: .infinity)
                 .padding(.bottom)
             Text("\(movie.overview)")
                 .font(.caption)
+        }
+        .onTapGesture {
+            showDrawer.toggle()
+        }
+        .sheet(isPresented: $showDrawer) {
+            VStack {
+                MovieDetailView(movie: movie)
+            }
         }
     }
 }

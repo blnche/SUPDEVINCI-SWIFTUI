@@ -13,11 +13,9 @@ struct MovieListView: View {
     var body: some View {
         VStack (alignment: .leading) {
             if viewModel.isLoading {
-//                LoadingView()
-                Text("Loading...")
+                LoadingView()
             } else if let errorMessage = viewModel.errorMessage {
-//                ErrorView(message: errorMessage)
-                Text("Error: \(errorMessage)")
+                ErrorView(message: errorMessage)
             } else {
                 Text("Popular Movies")
                     .font(.largeTitle)
@@ -29,7 +27,6 @@ struct MovieListView: View {
                     }
                     .padding(15)
                 }
-                    
             }
         }
         .padding()
