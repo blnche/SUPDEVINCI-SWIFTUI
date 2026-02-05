@@ -10,11 +10,8 @@ import SwiftUI
 struct Header: View {
     var body: some View {
         HStack {
-            Text("The Sea")
+            Text("Seaflix")
                 .font(.largeTitle)
-            Image(systemName: "film")
-                .foregroundStyle(.blue)
-                .imageScale(.large)
         }
     }
 }

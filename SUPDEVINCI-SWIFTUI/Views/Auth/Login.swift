@@ -10,10 +10,8 @@ import SwiftUI
 struct Login: View {
     @State private var username: String = ""
     @State private var password: String = ""
-    @State private var test = 0
     
     var body: some View {
-        Header()
         VStack(spacing: 20) {
             Text("Sign in to your account")
                 .font(.caption)
@@ -33,14 +31,6 @@ struct Login: View {
                 .foregroundStyle(.white)
                 .background(Color.black)
                 .clipShape(.rect(cornerRadius: 15)).shadow(radius: 8)
-            Button("Increment") {
-                test += 1
-            }
-            Button("Decrement") {
-                test -= 1
-            }
-            Text("\(test)")
-            ZStack {}
         }
     }
 }

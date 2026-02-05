@@ -14,7 +14,6 @@ struct Register: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Header()
             Text("Create a new account")
                 .font(.caption)
             VStack(spacing: 20) {
@@ -31,6 +30,12 @@ struct Register: View {
                 .foregroundStyle(.white)
                 .background(Color.black)
                 .clipShape(.rect(cornerRadius: 15)).shadow(radius: 8)
+//            NavigationStack {
+//                
+//                NavigationLink("Already have an account ? Login") {
+//                    Login()
+//                }
+//            }
             ZStack {}
         }
     }
