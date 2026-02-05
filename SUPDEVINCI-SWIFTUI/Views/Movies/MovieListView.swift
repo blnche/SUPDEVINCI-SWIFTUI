@@ -13,14 +13,13 @@ struct MovieListView: View {
     var body: some View {
         VStack (alignment: .leading) {
             if viewModel.isLoading {
-//                LoadingView()
-                Text("Loading...")
+                LoadingView()
             } else if let errorMessage = viewModel.errorMessage {
-//                ErrorView(message: errorMessage)
-                Text("Error: \(errorMessage)")
+                ErrorView(message: errorMessage)
             } else {
                 Text("Popular Movies")
-                    .font(.largeTitle)
+                    .font(.system(size: 34, weight: .heavy, design: .serif))
+                    .multilineTextAlignment(.leading)
                 ScrollView {
                     VStack (spacing: 20) {
                         ForEach(viewModel.movies, id: \.id ) { movie in
@@ -29,7 +28,6 @@ struct MovieListView: View {
                     }
                     .padding(15)
                 }
-                    
             }
         }
         .padding()
