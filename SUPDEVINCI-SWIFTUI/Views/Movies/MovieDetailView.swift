@@ -38,7 +38,6 @@ struct MovieDetailView: View {
                 Text(movie.overview)
                     .font(.body)
                     .foregroundColor(.white.opacity(0.8))
-                    .lineLimit(5)
                 
                 Label("\(movie.formattedRating)", systemImage: "star.fill")
                     .foregroundColor(.yellow)

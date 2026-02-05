@@ -18,7 +18,8 @@ struct MovieListView: View {
                 ErrorView(message: errorMessage)
             } else {
                 Text("Popular Movies")
-                    .font(.largeTitle)
+                    .font(.system(size: 34, weight: .heavy, design: .serif))
+                    .multilineTextAlignment(.leading)
                 ScrollView {
                     VStack (spacing: 20) {
                         ForEach(viewModel.movies, id: \.id ) { movie in

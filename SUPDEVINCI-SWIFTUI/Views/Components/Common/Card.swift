@@ -20,11 +20,19 @@ struct Card<Content: View>: View {
         }
             .padding()
             .background(Color.white)
-            .clipShape(.rect(cornerRadius: 15))
             .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.1), radius: 4, x: 0, y: 4)
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.gray.opacity(0.2), lineWidth: 1)
-            )
+            .mask(TicketShape())
     }
 }
+
+struct TicketShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let cornerRadius: CGFloat = 15
+
+        path.addRoundedRect(in: rect, cornerSize: CGSize(width: cornerRadius, height: cornerRadius))
+
+        return path
+    }
+}
+
