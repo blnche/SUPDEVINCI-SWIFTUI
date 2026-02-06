@@ -13,10 +13,10 @@ struct ContentView: View {
             VStack {
                 TabView {
                     MovieListView().tabItem { Label("Movies", systemImage: "film") }
-                    if user {
-                    Text("Favorites").tabItem { Label("Favorites", systemImage: "heart") }
-                    } 
-                    Text("Account").tabItem { Label("Account", systemImage: "person") }
+//                    if user {
+//                        FavoriteListView().tabItem { Label("Favorites", systemImage: "heart") }
+//                    }
+                    Authentication().tabItem { Label("Account", systemImage: "person") }
                 }
             }
     }

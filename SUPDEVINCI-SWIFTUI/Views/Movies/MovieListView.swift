@@ -11,19 +11,26 @@ struct MovieListView: View {
     @StateObject private var viewModel = MovieViewModel()
     
     var body: some View {
-        ZStack {
+        VStack (alignment: .leading) {
             if viewModel.isLoading {
-//                LoadingView()
-                Text("Loading...")
+                LoadingView()
             } else if let errorMessage = viewModel.errorMessage {
-//                ErrorView(message: errorMessage)
-                Text("Error: \(errorMessage)")
+                ErrorView(message: errorMessage)
             } else {
-                List(viewModel.movies) { movie in
-                    Text("\(movie.title)")
+                Text("Popular Movies")
+                    .font(.system(size: 34, weight: .heavy, design: .serif))
+                    .multilineTextAlignment(.leading)
+                ScrollView {
+                    VStack (spacing: 20) {
+                        ForEach(viewModel.movies, id: \.id ) { movie in
+                            MovieRowView(movie: movie)
+                        }
+                    }
+                    .padding(15)
                 }
             }
         }
+        .padding()
         .onAppear() {
             viewModel.loadPopularMovies()
         }
