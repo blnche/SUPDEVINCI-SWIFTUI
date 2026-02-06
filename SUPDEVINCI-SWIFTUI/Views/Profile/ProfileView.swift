@@ -30,7 +30,7 @@ struct ProfileView: View {
                             .foregroundColor(.secondary)
                             .tracking(2)
                         
-                        Text("\(username)")
+                        Text("\(sessionManager.currentUser?.username ?? "Anonymous")")
                             .font(.system(.largeTitle, design: .serif))
                             .fontWeight(.bold)
                     }
@@ -69,7 +69,7 @@ struct ProfileView: View {
                 .padding(.vertical, 10)
 
                 VStack(alignment: .leading, spacing: 16) {
-                    InfoRow(icon: "envelope.fill", title: "Email", value: "\(email)")
+                    InfoRow(icon: "envelope.fill", title: "Email", value: "\(sessionManager.currentUser?.email ?? "")")
                     InfoRow(icon: "lock.shield.fill", title: "Security", value: "••••••••••••")
                 }
                 .padding()
