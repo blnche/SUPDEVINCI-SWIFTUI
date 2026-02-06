@@ -12,6 +12,8 @@ class MovieViewModel: ObservableObject {
     @Published var movies: [Movie] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    private var sessionManager = SessionManager.shared
+    private var favoriteStorage = FavoriteStorage.shared
     
     private let apiService = APIService.shared
     
@@ -28,5 +30,29 @@ class MovieViewModel: ObservableObject {
             
             isLoading = false
         }
+    }
+    
+    func toggleFavorite(movie: Movie) {
+        guard sessionManager.isAuthenticated, var userId = sessionManager.currentUser?.id else {
+            return
+        }
+        
+        do {
+            if sessionManager.isFavorite(movieId: movie.id) {
+                try sessionManager.removeFavoriteMovie(movieId: movie.id)
+                try favoriteStorage.removeFavoriteByMovieId(movie.id, userId: userId)
+            } else {
+                try sessionManager.addFavoriteMovie(movieId: movie.id)
+                let newFavorite = Favorite(userId: userId, movieId: movie.id, movie: movie)
+                try favoriteStorage.addFavorite(newFavorite)
+            }
+            
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    func isFavorited(movieId: Int) -> Bool{
+        return sessionManager.currentUser?.favoriteMoviesIds.filter({$0 == movieId}).count ?? 0 > 0
     }
 }

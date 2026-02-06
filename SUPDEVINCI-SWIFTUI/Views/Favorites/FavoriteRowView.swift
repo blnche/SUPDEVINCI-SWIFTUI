@@ -11,6 +11,7 @@ struct FavoriteRowView: View {
     let favorite: Favorite
     @State private var isFavorite: Bool = true
     @State private var showDrawer = false
+    @ObservedObject var viewModel: FavoriteViewModel
     
     var body: some View {
         Card{
@@ -39,7 +40,7 @@ struct FavoriteRowView: View {
                 
                 Spacer()
                 
-                Button { isFavorite.toggle() } label: {
+                Button { viewModel.removeFromFavorites(favoriteId: favorite.id, movieId: favorite.movieId) } label: {
                     Spacer()
                     Image(systemName: isFavorite ? "heart.fill" : "heart")
                         .foregroundColor(isFavorite ? .red : .gray)

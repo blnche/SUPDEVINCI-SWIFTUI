@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var user: Bool = false
+    @ObservedObject var sessionManager = SessionManager.shared
+    @State var test: Bool = true
+    
     var body: some View {
-            VStack {
-                TabView {
-                    MovieListView().tabItem { Label("Movies", systemImage: "film") }
-//                    if user {
-//                        FavoriteListView().tabItem { Label("Favorites", systemImage: "heart") }
-//                    }
-                    Authentication().tabItem { Label("Account", systemImage: "person") }
+        VStack {
+            TabView {
+                MovieListView()
+                    .tabItem { Label("Movies", systemImage: "film") }
+                if sessionManager.isAuthenticated {
+                    FavoriteListView()
+                        .tabItem { Label("Favorites", systemImage: "heart") }
                 }
+                Authentication()
+                    .tabItem { Label("Account", systemImage: "person") }
             }
+        }
     }
 }
 

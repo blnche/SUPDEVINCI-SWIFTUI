@@ -129,6 +129,11 @@ class FavoriteStorage {
             throw FavoriteStorageError.encodingError
         }
     }
+    
+//    func saveFavorite(movie: Movie, userId: String) throws {
+//        let newFavorite = Favorite(userId: userId, movieId: movie.id, movie: movie)
+//        try addFavorite(newFavorite)
+//    }
 }
 
 enum FavoriteStorageError: LocalizedError {

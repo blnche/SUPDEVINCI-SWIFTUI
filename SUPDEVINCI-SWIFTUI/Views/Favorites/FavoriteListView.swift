@@ -6,9 +6,11 @@
 ////
 
 import SwiftUI
+import Foundation
 
-struct FavoriteListView {
+struct FavoriteListView: View {
     @StateObject private var viewModel = FavoriteViewModel()
+    @ObservedObject private var sessionManager = SessionManager.shared
     
     var body: some View {
         VStack {
@@ -34,7 +36,7 @@ struct FavoriteListView {
                 ScrollView {
                     VStack (spacing: 20) {
                         ForEach(viewModel.favorites, id: \.id ) { favorite in
-                            FavoriteRowView(favorite: favorite)
+                            FavoriteRowView(favorite: favorite, viewModel: viewModel)
                         }
                     }
                     .padding(15)
@@ -43,6 +45,9 @@ struct FavoriteListView {
         }
         .padding()
         .onAppear {
+            viewModel.loadFavorites()
+        }
+        .onChange(of: sessionManager.currentUser?.favoriteMoviesIds) {
             viewModel.loadFavorites()
         }
     }

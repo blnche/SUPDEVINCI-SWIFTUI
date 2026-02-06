@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MovieListView: View {
     @StateObject private var viewModel = MovieViewModel()
+    @StateObject private var sessionManager = SessionManager.shared
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -24,6 +25,7 @@ struct MovieListView: View {
                     VStack (spacing: 20) {
                         ForEach(viewModel.movies, id: \.id ) { movie in
                             MovieRowView(movie: movie)
+                                .environmentObject(sessionManager)
                         }
                     }
                     .padding(15)
