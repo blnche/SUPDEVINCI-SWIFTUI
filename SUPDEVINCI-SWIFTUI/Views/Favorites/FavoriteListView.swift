@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FavoriteListView {
+struct FavoriteListView: View {
     @StateObject private var viewModel = FavoriteViewModel()
     
     var body: some View {
