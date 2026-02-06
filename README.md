@@ -1,4 +1,5 @@
 MovieStream – Application iOS de Streaming
+
 🎬 Description
 MovieStream est une application mobile développée en Swift et SwiftUI permettant aux utilisateurs de découvrir des films via une API publique, de gérer leur profil et d'organiser leurs films favoris. L'application suit une architecture MVVM stricte pour garantir une séparation claire des responsabilités et une maintenance facilitée.
 
@@ -46,8 +47,8 @@ Services : Modules dédiés aux appels API et à la persistance locale
 📖 Installation
 Clonez le dépôt.
 
-Ouvrez le fichier .xcodeproj dans Xcode.
+1 - Ouvrez le fichier .xcodeproj dans Xcode.
 
-Assurez-vous d'avoir une connexion internet pour la récupération des films.
+2 - Assurez-vous d'avoir une connexion internet pour la récupération des films.
 
-Compilez et lancez l'application sur un simulateur iOS ou un appareil physique.
+3 - Compilez et lancez l'application sur un simulateur iOS ou un appareil physique.
