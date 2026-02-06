@@ -49,7 +49,7 @@ struct MovieRowView: View {
                     Spacer()
                     
                     Button(action: {
-                        viewModel.toggleFavorite(movieId: movie.id)
+                        viewModel.toggleFavorite(movie: movie)
                     }) {
                         Spacer()
                         Image(systemName: viewModel.isFavorited(movieId: movie.id) ? "heart.fill" : "heart")

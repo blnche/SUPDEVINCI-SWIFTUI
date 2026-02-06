@@ -41,13 +41,11 @@ class FavoriteStorage {
         }
     }
     
-    func removeFavorite(withId favoriteId: Int, userId: String) throws {
+    func removeFavorite(withId favoriteId: String, userId: String) throws {
         var favorites = try getFavorites(for: userId)
-        
         guard let index = favorites.firstIndex(where: { $0.id == favoriteId }) else {
             throw FavoriteStorageError.notFound
         }
-        
         favorites.remove(at: index)
         try saveFavorites(favorites, for: userId)
     }
@@ -60,7 +58,7 @@ class FavoriteStorage {
         }
         
         favorites.remove(at: index)
-        try saveFavorite(favorites, for: userId)
+        try saveFavorites(favorites, for: userId)
     }
     
     func updateFavorite(
@@ -75,32 +73,21 @@ class FavoriteStorage {
             throw FavoriteStorageError.notFound
         }
         
-        var updatedFavorite = favorites[index]
+        let existing = favorites[index]
         
-        if let personalRating = personalRating {
-            updatedFavorite = Favorite(
-                id: updatedFavorite.id,
-                userId: updatedFavorite.userId,
-                movieId: updatedFavorite.movieId,
-                movie: updatedFavorite.movie,
-                dateAdded: updatedFavorite.dateAdded,
-                personalRating: personalRating,
-                notes: notes ?? updatedFavorite.notes
-            )
-        } else if let notes = notes {
-            updatedFavorite = Favorite(
-                id: updatedFavorite.id,
-                userId: updatedFavorite.userId,
-                movieId: updatedFavorite.movieId,
-                movie: updatedFavorite.movie,
-                dateAdded: updatedFavorite.dateAdded,
-                personalRating: updatedFavorite.personalRating,
-                notes: notes
-            )
-        }
+        let updatedFavorite = Favorite(
+            id: existing.id,
+            userId: existing.userId,
+            movieId: existing.movieId,
+            movie: existing.movie,
+            dateAdded: existing.dateAdded,
+            personalRating: personalRating ?? existing.personalRating,
+            notes: notes ?? existing.notes
+        )
         
         favorites[index] = updatedFavorite
-        try saveFavorite(favorites, for: userId)
+        
+        try saveFavorites(favorites, for: userId)
     }
     
     func isFavorited(movieId: Int, userId: String) throws -> Bool {
@@ -118,7 +105,7 @@ class FavoriteStorage {
         userDefaults.removeObject(forKey: key)
     }
     
-    func saveFavorite(movie: Movie, userId: String) throws {
+    private func saveFavorites(_ favorites: [Favorite], for userId: String) throws {
         let key = "\(favoritesKey)_\(userId)"
         do {
             let encoder = JSONEncoder()
@@ -127,6 +114,11 @@ class FavoriteStorage {
         } catch {
             throw FavoriteStorageError.encodingError
         }
+    }
+    
+    func saveFavorite(movie: Movie, userId: String) throws {
+        let newFavorite = Favorite(userId: userId, movieId: movie.id, movie: movie)
+        try addFavorite(newFavorite)
     }
 }
 

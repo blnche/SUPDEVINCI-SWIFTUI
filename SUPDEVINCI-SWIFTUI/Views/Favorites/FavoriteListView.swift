@@ -34,7 +34,7 @@ struct FavoriteListView: View {
                     .multilineTextAlignment(.leading)
                 ScrollView {
                     VStack (spacing: 20) {
-                        Text("\(viewModel.favorites)")
+//                        Text("\(viewModel.favorites)")
                         ForEach(viewModel.favorites, id: \.id ) { favorite in
                             FavoriteRowView(favorite: favorite, viewModel: viewModel)
                         }

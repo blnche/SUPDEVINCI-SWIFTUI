@@ -38,30 +38,31 @@ class MovieViewModel: ObservableObject {
     }
     
     func toggleFavorite(movie: Movie) {
-        guard sessionManager.isAuthenticated, let userId = sessionManager.currentUser?.id else {
+        guard sessionManager.isAuthenticated,
+        let userId = sessionManager.currentUser?.id else {
             errorMessage = "Connectez-vous pour ajouter aux favoris"
             return
         }
         
         do {
             if isFavorited(movieId: movie.id) {
-                // 1. Retirer de la session (UserStorage interne)
+                // 1. Retirer de la session utilisateur
                 try sessionManager.removeFavoriteMovie(movieId: movie.id)
-                // 2. Retirer l'objet Movie complet du stockage dédié
-                favoriteStorage.removeFavorite(withId: movie.id, userId: userId)
+                // 2. Retirer l'objet complet du stockage
+                try favoriteStorage.removeFavoriteByMovieId(movie.id, userId: userId)
                 // 3. Update UI
                 favoriteMovieIds.remove(movie.id)
             } else {
-                // 1. Ajouter à la session (UserStorage interne)
+                // 1. Ajouter à la session utilisateur
                 try sessionManager.addFavoriteMovie(movieId: movie.id)
-                // 2. Sauvegarder l'objet Movie complet
-                favoriteStorage.saveFavorite(movie: movie, userId: userId)
+                // 2. Créer l'objet Favorite et le sauvegarder
+                let newFavorite = Favorite(userId: userId, movieId: movie.id, movie: movie)
+                try favoriteStorage.addFavorite(newFavorite)
                 // 3. Update UI
                 favoriteMovieIds.insert(movie.id)
             }
         } catch {
             errorMessage = error.localizedDescription
-            print("❌ Erreur: \(error.localizedDescription)")
         }
     }
     
