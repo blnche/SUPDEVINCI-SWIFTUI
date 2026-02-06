@@ -47,5 +47,5 @@ struct Favorite: Codable, Identifiable {
     var hasNotes: Bool {
         notes != nil
     }
-}   
+}
 

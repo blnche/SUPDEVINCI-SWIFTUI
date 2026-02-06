@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var user: Bool = false
+    @State var user: Bool = true
     var body: some View {
             VStack {
                 TabView {
@@ -16,7 +16,7 @@ struct ContentView: View {
 //                    if user {
 //                        FavoriteListView().tabItem { Label("Favorites", systemImage: "heart") }
 //                    }
-                    Authentication().tabItem { Label("Account", systemImage: "person") }
+                    ProfileView().tabItem { Label("Account", systemImage: "person") }
                 }
             }
     }

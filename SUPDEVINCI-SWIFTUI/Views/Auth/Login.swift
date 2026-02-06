@@ -28,7 +28,6 @@ struct Login: View {
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
             }.padding()
-//            Text("\(password)")
             Button(action: handleLogin) {
                 Text("Sign in")
                     .padding()
@@ -50,7 +49,7 @@ struct Login: View {
         errorMessage = nil
         
         print("🔍 Tentative de login avec email: \(email)")
-        UserStorage.shared.debugPrintAllUsers()  // ← Ajoute ça
+        UserStorage.shared.debugPrintAllUsers()
         
         do {
             try sessionManager.login(email: email, password: password)

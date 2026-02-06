@@ -5,6 +5,8 @@
 //  Created by Cours on 06/02/2026.
 //
 
+import SwiftUI
+
 struct StatView: View {
     let number: String
     let label: String
