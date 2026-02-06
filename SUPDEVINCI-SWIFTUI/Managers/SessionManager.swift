@@ -17,8 +17,8 @@ class SessionManager: ObservableObject {
     
     init() {
         loadSession()
-        print(currentUser)
-        print(currentUser?.favoriteMoviesIds)
+//        print(currentUser)
+//        print(currentUser?.favoriteMoviesIds)
     }
     
     func login(email: String, password: String) throws {
@@ -65,7 +65,7 @@ class SessionManager: ObservableObject {
     }
     
     func isFavorite(movieId: Int) -> Bool {
-        print(currentUser?.favoriteMoviesIds)
+//        print(currentUser?.favoriteMoviesIds)
         return currentUser?.favoriteMoviesIds.contains(movieId) ?? false
     }
     

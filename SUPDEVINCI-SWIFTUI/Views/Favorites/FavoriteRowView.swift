@@ -40,7 +40,7 @@ struct FavoriteRowView: View {
                 
                 Spacer()
                 
-                Button { viewModel.removeFromFavorites(favoriteId: favorite.id) } label: {
+                Button { viewModel.removeFromFavorites(favoriteId: favorite.id, movieId: favorite.movieId) } label: {
                     Spacer()
                     Image(systemName: isFavorite ? "heart.fill" : "heart")
                         .foregroundColor(isFavorite ? .red : .gray)
