@@ -33,18 +33,15 @@ class MovieViewModel: ObservableObject {
     }
     
     func toggleFavorite(movie: Movie) {
-        print("Trying to toglle....")
         guard sessionManager.isAuthenticated, var userId = sessionManager.currentUser?.id else {
             return
         }
         
         do {
             if sessionManager.isFavorite(movieId: movie.id) {
-                print("remove")
                 try sessionManager.removeFavoriteMovie(movieId: movie.id)
                 try favoriteStorage.removeFavoriteByMovieId(movie.id, userId: userId)
             } else {
-                print("add")
                 try sessionManager.addFavoriteMovie(movieId: movie.id)
                 let newFavorite = Favorite(userId: userId, movieId: movie.id, movie: movie)
                 try favoriteStorage.addFavorite(newFavorite)
@@ -52,7 +49,6 @@ class MovieViewModel: ObservableObject {
             
         } catch {
             errorMessage = error.localizedDescription
-            print("Erreur: \(error.localizedDescription)")
         }
     }
     

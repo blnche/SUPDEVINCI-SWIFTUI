@@ -28,7 +28,6 @@ class FavoriteViewModel: ObservableObject {
             
             do {
                 favorites = try favoriteStorage.getFavorites(for: userId)
-                print("testing: \(favorites)")
             } catch {
                 errorMessage = "Erreur lors du chargement des favoris"
             }
@@ -69,7 +68,7 @@ class FavoriteViewModel: ObservableObject {
         }
     }
     
-    func removeFromFavorites(favoriteId: String) {
+    func removeFromFavorites(favoriteId: String, movieId: Int? = nil) {
         guard let userId = sessionManager.currentUser?.id else {
             errorMessage = "Utilisateur non connecté"
             return
@@ -78,7 +77,7 @@ class FavoriteViewModel: ObservableObject {
         Task {
             do {
                 try favoriteStorage.removeFavorite(withId: favoriteId, userId: userId)
-                
+                try sessionManager.removeFavoriteMovie(movieId: movieId!)
                 // Retirer de la liste locale
                 await MainActor.run {
                     favorites.removeAll { $0.id == favoriteId }
@@ -93,7 +92,6 @@ class FavoriteViewModel: ObservableObject {
     }
     
     func findDuplicateGenres(inFavorites favorites: [Favorite]) -> [Int] {
-            print(favorites)
             let allGenres = favorites.flatMap { $0.movie.genre_ids }
             var seen = Set<Int>()
             var duplicates = Set<Int>()
