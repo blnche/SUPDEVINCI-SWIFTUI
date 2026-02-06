@@ -92,6 +92,23 @@ class FavoriteViewModel: ObservableObject {
         }
     }
     
+    func findDuplicateGenres(inFavorites favorites: [Favorite]) -> [Int] {
+            print(favorites)
+            let allGenres = favorites.flatMap { $0.movie.genre_ids }
+            var seen = Set<Int>()
+            var duplicates = Set<Int>()
+            
+            for genre in allGenres {
+                if seen.contains(genre) {
+                    duplicates.insert(genre)
+                } else {
+                    seen.insert(genre)
+                }
+            }
+            
+            return Array(duplicates).sorted()
+        }
+    
     func getSortedFavorites(by sortOption: SortOption) -> [Favorite] {
         switch sortOption {
         case .dateAdded:
