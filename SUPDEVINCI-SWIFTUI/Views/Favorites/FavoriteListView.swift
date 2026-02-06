@@ -36,7 +36,7 @@ struct FavoriteListView: View {
                 ScrollView {
                     VStack (spacing: 20) {
                         ForEach(viewModel.favorites, id: \.id ) { favorite in
-                            FavoriteRowView(favorite: favorite)
+                            FavoriteRowView(favorite: favorite, viewModel: viewModel)
                         }
                     }
                     .padding(15)
