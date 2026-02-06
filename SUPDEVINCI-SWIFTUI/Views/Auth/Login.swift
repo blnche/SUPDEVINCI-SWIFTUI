@@ -8,12 +8,7 @@
 import SwiftUI
 
 struct Login: View {
-    @StateObject private var sessionManager = SessionManager.shared
-    @State private var username: String = ""
-    @State private var email: String = ""
-    @State private var password: String = ""
-    @State private var isLoading: Bool = false
-    @State private var errorMessage: String? = nil
+    @StateObject private var viewModel = AuthViewModel()
     @Binding var showRegister: Bool
     
     var body: some View {
@@ -21,44 +16,34 @@ struct Login: View {
             Text("Sign in to your account")
                 .font(.caption)
             VStack(spacing: 20) {
-                TextField("Email", text: $email)
+                TextField("Email", text: $viewModel.email)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
-                SecureField("Password", text: $password)
+                SecureField("Password", text: $viewModel.password)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
             }.padding()
 //            Text("\(password)")
-            Button(action: handleLogin) {
+            if let errorMessage = viewModel.errorMessage {
+                Text(errorMessage)
+                    .font(.caption)
+                    .foregroundColor(.red)
+            }
+            Button(action: viewModel.login) {
                 Text("Sign in")
                     .padding()
             }
+                .disabled(!viewModel.isLoginFormValid || viewModel.isLoading)
                 .foregroundStyle(.white)
                 .background(Color.black)
-                .clipShape(.rect(cornerRadius: 15)).shadow(radius: 8)
+                .clipShape(.rect(cornerRadius: 15))
+                .shadow(radius: 8)
             Button(action: { showRegister = false }) {
                 Text("Register here")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.blue)
             }
-        }
-    }
-    
-    private func handleLogin() {
-        isLoading = true
-        errorMessage = nil
-        
-        print("🔍 Tentative de login avec email: \(email)")
-        UserStorage.shared.debugPrintAllUsers()  // ← Ajoute ça
-        
-        do {
-            try sessionManager.login(email: email, password: password)
-            print("✅ Login réussi")
-        } catch {
-            print("❌ Erreur login: \(error.localizedDescription)")
-            errorMessage = error.localizedDescription
-            isLoading = false
         }
     }
 }
