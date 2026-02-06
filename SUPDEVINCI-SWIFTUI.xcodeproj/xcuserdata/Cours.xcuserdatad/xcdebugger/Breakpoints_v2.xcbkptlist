@@ -18,6 +18,36 @@
             endingLineNumber = "95"
             landmarkName = "findDuplicateGenres(inFavorites:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C30BD934-FC53-465A-A44C-8E64B4CD3B48 - ff6b7539128f4a21"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SUPDEVINCI_SWIFTUI.FavoriteViewModel.findDuplicateGenres(inFavorites: Swift.Array&lt;SUPDEVINCI_SWIFTUI.Favorite&gt;) -&gt; Swift.Array&lt;Swift.Int&gt;"
+                  moduleName = "SUPDEVINCI-SWIFTUI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Cours/Documents/SUPDEVINCI-SWIFTUI2/SUPDEVINCI-SWIFTUI/ViewModels/FavoriteViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95">
+               </Location>
+               <Location
+                  uuid = "C30BD934-FC53-465A-A44C-8E64B4CD3B48 - 258cea8d29184dac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SUPDEVINCI_SWIFTUI.Favorite) -&gt; Swift.Array&lt;Swift.Int&gt; in SUPDEVINCI_SWIFTUI.FavoriteViewModel.findDuplicateGenres(inFavorites: Swift.Array&lt;SUPDEVINCI_SWIFTUI.Favorite&gt;) -&gt; Swift.Array&lt;Swift.Int&gt;"
+                  moduleName = "SUPDEVINCI-SWIFTUI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Cours/Documents/SUPDEVINCI-SWIFTUI2/SUPDEVINCI-SWIFTUI/ViewModels/FavoriteViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

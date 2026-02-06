@@ -37,6 +37,20 @@
 			);
 			target = C986F0042F337D34005492FE /* SUPDEVINCI-SWIFTUI */;
 		};
+		3AFFC55F2F3633770018EDFC /* Exceptions for "SUPDEVINCI-SWIFTUI" folder in "SUPDEVINCI-SWIFTUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Utils/Extensions.swift,
+			);
+			target = C986F0142F337D36005492FE /* SUPDEVINCI-SWIFTUITests */;
+		};
+		3AFFC5602F3633770018EDFC /* Exceptions for "SUPDEVINCI-SWIFTUI" folder in "SUPDEVINCI-SWIFTUIUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Utils/Extensions.swift,
+			);
+			target = C986F01E2F337D36005492FE /* SUPDEVINCI-SWIFTUIUITests */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -44,6 +58,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				3AB81F5C2F361C90002CA5B0 /* Exceptions for "SUPDEVINCI-SWIFTUI" folder in "SUPDEVINCI-SWIFTUI" target */,
+				3AFFC55F2F3633770018EDFC /* Exceptions for "SUPDEVINCI-SWIFTUI" folder in "SUPDEVINCI-SWIFTUITests" target */,
+				3AFFC5602F3633770018EDFC /* Exceptions for "SUPDEVINCI-SWIFTUI" folder in "SUPDEVINCI-SWIFTUIUITests" target */,
 			);
 			path = "SUPDEVINCI-SWIFTUI";
 			sourceTree = "<group>";
