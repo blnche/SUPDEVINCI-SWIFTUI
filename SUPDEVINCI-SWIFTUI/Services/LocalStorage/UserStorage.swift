@@ -120,6 +120,25 @@ class UserStorage {
         users[index].removeFavoriteMovie(movieId: movieId)
         try saveUsers(users)
     }
+    
+    func debugPrintAllUsers() {
+        do {
+            let users = try getAllUsers()
+            print("📱 === UTILISATEURS EN LOCAL STORAGE ===")
+            for user in users {
+                print("ID: \(user.id)")
+                print("Name: \(user.name)")
+                print("Email: \(user.email)")
+                print("Password Hash: \(user.password ?? "N/A")")
+                print("---")
+            }
+            if users.isEmpty {
+                print("❌ Aucun utilisateur en local storage")
+            }
+        } catch {
+            print("❌ Erreur lors de la lecture: \(error.localizedDescription)")
+        }
+    }
 }
 
 enum UserStorageError: LocalizedError {

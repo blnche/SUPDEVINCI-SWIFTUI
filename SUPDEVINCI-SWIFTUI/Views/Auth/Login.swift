@@ -28,7 +28,7 @@ struct Login: View {
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 15).stroke(Color.gray.opacity(0.2), lineWidth: 1))
             }.padding()
-            Text("\(password)")
+//            Text("\(password)")
             Button(action: handleLogin) {
                 Text("Sign in")
                     .padding()
@@ -37,7 +37,7 @@ struct Login: View {
                 .background(Color.black)
                 .clipShape(.rect(cornerRadius: 15)).shadow(radius: 8)
             Button(action: { showRegister = false }) {
-                Text("Don't have an account ? Register here")
+                Text("Register here")
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.blue)
@@ -48,6 +48,9 @@ struct Login: View {
     private func handleLogin() {
         isLoading = true
         errorMessage = nil
+        
+        print("🔍 Tentative de login avec email: \(email)")
+        UserStorage.shared.debugPrintAllUsers()  // ← Ajoute ça
         
         do {
             try sessionManager.login(email: email, password: password)

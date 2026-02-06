@@ -51,14 +51,17 @@ struct Register: View {
                 .padding()
                 .textFieldStyle(.roundedBorder)
             Button(action: handleRegister) {
-                Text("Sign in")
+                Text("Register")
                     .padding()
             }
                 .foregroundStyle(.white)
                 .background(Color.black)
                 .clipShape(.rect(cornerRadius: 15)).shadow(radius: 8)
-            Button("Already have an account ? Login") {
-                showLogin = false
+            Button(action: { showLogin = true }) {
+                Text("Already have an account ? Login")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.blue)
             }
             
             if let errorMessage = errorMessage {

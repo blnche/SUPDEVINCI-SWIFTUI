@@ -12,7 +12,6 @@ struct Authentication: View {
     
     var body: some View {
         if sessionManager.isAuthenticated {
-//            MovieListView()
             ProfileView()
         } else {
             AuthChoiceView()

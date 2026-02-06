@@ -32,7 +32,7 @@ struct User: Codable, Identifiable {
     }
     
     func verifyPassword(_ password: String) -> Bool {
-        return Self.hashPassword(password) == password
+        return Self.hashPassword(password) == self.password
     }
     
     func isFavorite(movieId: Int) -> Bool {
@@ -40,10 +40,7 @@ struct User: Codable, Identifiable {
     }
     
     private static func hashPassword(_ password: String) -> String {
-        // Simple hash pour le développement local
-        let data = password.data(using: .utf8) ?? Data()
-        let hash = data.hashValue
-        return String(hash)
+        return password.sha256()
     }
     
     mutating func addFavoriteMovie(movieId: Int) {
