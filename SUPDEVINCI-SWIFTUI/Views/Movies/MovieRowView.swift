@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct MovieRowView: View {
     let movie: Movie
-    @State private var isFavorite: Bool = false
+    @EnvironmentObject var sessionManager: SessionManager
+    @StateObject private var viewModel = MovieViewModel()
     @State private var showDrawer = false
-
+    
     
     var body: some View {
         Card{
@@ -47,10 +49,10 @@ struct MovieRowView: View {
                     
                     Spacer()
                     
-                    Button { isFavorite.toggle() } label: {
+                    Button { viewModel.toggleFavorite(movie: movie) } label: {
                         Spacer()
-                        Image(systemName: isFavorite ? "heart.fill" : "heart")
-                            .foregroundColor(isFavorite ? .red : .gray)
+                        Image(systemName: viewModel.isFavorited(movieId: movie.id) ? "heart.fill" : "heart")
+                            .foregroundColor(viewModel.isFavorited(movieId: movie.id) ? .red : .gray)
                     }
                 }
             }

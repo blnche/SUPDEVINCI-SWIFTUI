@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class FavoriteViewModel: ObservableObject {
     @Published var favorites: [Favorite] = []
     @Published var isLoading = false
@@ -16,6 +17,74 @@ class FavoriteViewModel: ObservableObject {
     private let sessionManager = SessionManager.shared
     
     func loadFavorites() {
+        print("🔍 Starting loadFavorites")
+        print("🔍 User ID: \(sessionManager.currentUser?.id ?? "nil")")
+        print("🔍 Favorite IDs: \(sessionManager.currentUser?.favoriteMoviesIds ?? [])")
+        
+        guard let userId = sessionManager.currentUser?.id,
+              let favoriteMovieIds = sessionManager.currentUser?.favoriteMoviesIds else {
+            print("❌ No user or favorite IDs")
+            errorMessage = "Utilisateur non connecté"
+            return
+        }
+        
+        // If no favorites, don't even start loading
+        guard !favoriteMovieIds.isEmpty else {
+            print("⚠️ No favorite movies to load")
+            return
+        }
+        
+        Task {
+            isLoading = true
+            errorMessage = nil
+            favorites = []
+            print("⏳ Loading started")
+            
+            do {
+                let movies = try await withThrowingTaskGroup(of: Movie.self) { group in
+                    for movieId in favoriteMovieIds {
+                        group.addTask {
+                            try await self.fetchMovieDetails(movieId: movieId)
+                        }
+                    }
+                    
+                    var fetchedMovies: [Movie] = []
+                    for try await movie in group {
+                        fetchedMovies.append(movie)
+                    }
+                    return fetchedMovies
+                }
+                
+                favorites = movies.map { movie in
+                    Favorite(
+                        userId: userId,
+                        movieId: movie.id,
+                        movie: movie,
+                        personalRating: nil,
+                        notes: nil
+                    )
+                }
+                
+                print("✅ Loaded \(favorites.count) favorites")
+                
+            } catch {
+                errorMessage = "Erreur lors du chargement des favoris: \(error.localizedDescription)"
+                print("❌ Error: \(error)")
+            }
+            
+            isLoading = false
+            print("✅ Loading finished")
+        }
+    }
+
+    private func fetchMovieDetails(movieId: Int) async throws -> Movie {
+        print("📡 Starting fetch for movie \(movieId)")
+        let movie = try await APIService.shared.fetchMovie(id: movieId)
+        print("✅ Completed fetch for movie \(movieId): \(movie.title)")
+        return movie
+    }
+    
+    func loadFavoritesOld() {
         guard let userId = sessionManager.currentUser?.id else {
             errorMessage = "Utilisateur non connecté"
             return
