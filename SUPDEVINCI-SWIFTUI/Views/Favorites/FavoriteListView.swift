@@ -6,9 +6,11 @@
 ////
 
 import SwiftUI
+import Foundation
 
 struct FavoriteListView: View {
     @StateObject private var viewModel = FavoriteViewModel()
+    @StateObject private var sessionManager = SessionManager.shared
     
     var body: some View {
         VStack {
@@ -16,17 +18,17 @@ struct FavoriteListView: View {
                 LoadingView()
             } else if let errorMessage = viewModel.errorMessage {
                 ErrorView(message: errorMessage)
-            } else if viewModel.favorites.isEmpty {
-                VStack(spacing: 16) {
-                    Image(systemName: "heart.slash")
-                        .font(.system(size: 50))
-                        .foregroundColor(.gray)
-                    Text("Aucun favori")
-                        .font(.headline)
-                    Text("Ajoutez des films à vos favoris pour les retrouver ici")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
+//            } else if viewModel.favorites.isEmpty {
+//                VStack(spacing: 16) {
+//                    Image(systemName: "heart.slash")
+//                        .font(.system(size: 50))
+//                        .foregroundColor(.gray)
+//                    Text("Aucun favori")
+//                        .font(.headline)
+//                    Text("Ajoutez des films à vos favoris pour les retrouver ici")
+//                        .font(.caption)
+//                        .foregroundColor(.gray)
+//                }
             } else {
                 Text("Favorites Movies")
                     .font(.system(size: 34, weight: .heavy, design: .serif))
@@ -43,6 +45,9 @@ struct FavoriteListView: View {
         }
         .padding()
         .onAppear {
+            viewModel.loadFavorites()
+        }
+        .onChange(of: sessionManager.currentUser?.favoriteMoviesIds) {
             viewModel.loadFavorites()
         }
     }

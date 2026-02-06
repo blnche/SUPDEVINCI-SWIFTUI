@@ -42,9 +42,12 @@ class MovieViewModel: ObservableObject {
             if sessionManager.isFavorite(movieId: movie.id) {
                 print("remove")
                 try sessionManager.removeFavoriteMovie(movieId: movie.id)
+                try favoriteStorage.removeFavoriteByMovieId(movie.id, userId: userId)
             } else {
                 print("add")
                 try sessionManager.addFavoriteMovie(movieId: movie.id)
+                let newFavorite = Favorite(userId: userId, movieId: movie.id, movie: movie)
+                try favoriteStorage.addFavorite(newFavorite)
             }
             
         } catch {
