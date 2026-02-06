@@ -49,4 +49,19 @@ class APIService {
         
         return response.results
     }
+    
+    func fetchMovie(id: Int) async throws -> Movie {
+        let endpoint = "\(baseUrl)/movie/\(id)"
+        print("🌐 Full URL: \(endpoint)")
+        
+        do {
+            let movie: Movie = try await fectchData(endpoint: endpoint)
+            print("✅ Successfully fetched movie: \(movie.title)")
+            return movie
+        } catch {
+            print("❌ API Error fetching movie \(id): \(error)")
+            print("❌ Error type: \(type(of: error))")
+            throw error
+        }
+    }
 }
