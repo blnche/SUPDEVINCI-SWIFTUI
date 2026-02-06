@@ -48,6 +48,7 @@ class SessionManager: ObservableObject {
         try userStorage.addFavoriteMovie(movieId: movieId, userId: user.id)
         user.addFavoriteMovie(movieId: movieId)
         currentUser = user
+        print("✅ Favori ajouté - Favoris de l'user: \(currentUser?.favoriteMoviesIds ?? [])")
         saveSession()
     }
     

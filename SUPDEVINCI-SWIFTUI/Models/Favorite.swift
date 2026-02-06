@@ -8,7 +8,7 @@
 import Foundation
 
 struct Favorite: Codable, Identifiable {
-    let id: String
+    let id: Int
     let userId: String
     let movieId: Int
     let movie: Movie
@@ -16,7 +16,7 @@ struct Favorite: Codable, Identifiable {
     let personalRating: Double?
     let notes: String?
     
-    init(id: String = UUID().uuidString,
+    init(id: Int,
          userId: String,
          movieId: Int,
          movie: Movie,

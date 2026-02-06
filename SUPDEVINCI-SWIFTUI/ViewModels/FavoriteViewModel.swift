@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class FavoriteViewModel: ObservableObject {
     @Published var favorites: [Favorite] = []
     @Published var isLoading = false
@@ -27,6 +28,7 @@ class FavoriteViewModel: ObservableObject {
             
             do {
                 favorites = try favoriteStorage.getFavorites(for: userId)
+                print(favorites)
             } catch {
                 errorMessage = "Erreur lors du chargement des favoris"
             }

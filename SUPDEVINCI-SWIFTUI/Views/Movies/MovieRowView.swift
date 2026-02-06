@@ -11,7 +11,8 @@ struct MovieRowView: View {
     let movie: Movie
     @State private var isFavorite: Bool = false
     @State private var showDrawer = false
-
+    @ObservedObject var sessionManager = SessionManager.shared
+    @ObservedObject var viewModel: MovieViewModel
     
     var body: some View {
         Card{
@@ -47,11 +48,19 @@ struct MovieRowView: View {
                     
                     Spacer()
                     
-                    Button { isFavorite.toggle() } label: {
+                    Button(action: {
+                        viewModel.toggleFavorite(movieId: movie.id)
+                    }) {
                         Spacer()
-                        Image(systemName: isFavorite ? "heart.fill" : "heart")
-                            .foregroundColor(isFavorite ? .red : .gray)
+                        Image(systemName: viewModel.isFavorited(movieId: movie.id) ? "heart.fill" : "heart")
+                            .foregroundColor(viewModel.isFavorited(movieId: movie.id) ? .red : .gray)
                     }
+                    
+//                    Button { isFavorite.toggle() } label: {
+//                        Spacer()
+//                        Image(systemName: isFavorite ? "heart.fill" : "heart")
+//                            .foregroundColor(isFavorite ? .red : .gray)
+//                    }
                 }
             }
         }

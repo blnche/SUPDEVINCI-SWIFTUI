@@ -41,7 +41,7 @@ class FavoriteStorage {
         }
     }
     
-    func removeFavorite(withId favoriteId: String, userId: String) throws {
+    func removeFavorite(withId favoriteId: Int, userId: String) throws {
         var favorites = try getFavorites(for: userId)
         
         guard let index = favorites.firstIndex(where: { $0.id == favoriteId }) else {
@@ -60,7 +60,7 @@ class FavoriteStorage {
         }
         
         favorites.remove(at: index)
-        try saveFavorites(favorites, for: userId)
+        try saveFavorite(favorites, for: userId)
     }
     
     func updateFavorite(
@@ -100,7 +100,7 @@ class FavoriteStorage {
         }
         
         favorites[index] = updatedFavorite
-        try saveFavorites(favorites, for: userId)
+        try saveFavorite(favorites, for: userId)
     }
     
     func isFavorited(movieId: Int, userId: String) throws -> Bool {
@@ -118,9 +118,8 @@ class FavoriteStorage {
         userDefaults.removeObject(forKey: key)
     }
     
-    private func saveFavorites(_ favorites: [Favorite], for userId: String) throws {
+    func saveFavorite(movie: Movie, userId: String) throws {
         let key = "\(favoritesKey)_\(userId)"
-        
         do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(favorites)

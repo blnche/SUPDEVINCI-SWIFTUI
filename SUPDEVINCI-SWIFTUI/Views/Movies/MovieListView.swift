@@ -23,7 +23,7 @@ struct MovieListView: View {
                 ScrollView {
                     VStack (spacing: 20) {
                         ForEach(viewModel.movies, id: \.id ) { movie in
-                            MovieRowView(movie: movie)
+                            MovieRowView(movie: movie, viewModel: viewModel)
                         }
                     }
                     .padding(15)
